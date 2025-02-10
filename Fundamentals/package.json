@@ -1,0 +1,17 @@
+{
+  "name": "fundamentals",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "tsx --watch src/server.ts"
+  },
+  "keywords": [],
+  "author": "Skitttz",
+  "license": "ISC",
+  "description": "fundamentals node",
+  "devDependencies": {
+    "@types/node": "^22.13.1",
+    "ts-node": "^10.9.2"
+  }
+}
