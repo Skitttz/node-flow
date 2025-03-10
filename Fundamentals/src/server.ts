@@ -35,9 +35,6 @@ class Server {
       customReq.params = params || {}; 
       customReq.query = query ? extractQueryParams(query) : {}; 
 
-      console.log("Params:", customReq.params);
-      console.log("Query:", customReq.query);
-
       return route.handler(customReq, res);
     });
 
