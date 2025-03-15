@@ -8,7 +8,6 @@ NodeFlow is a structured roadmap for learning Node.js fundamentals, REST API dev
 
 Start with the foundation: Understand the core concepts of Node.js, including the event loop, asynchronous programming, and working with modules. This is where you set up your gear for the climb ahead!
 
-</br>
 
 ### ⛰️ **Phase 2**: Building a REST API
 
