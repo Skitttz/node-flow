@@ -3,10 +3,14 @@
   "version": "1.0.0",
   "main": "index.js",
   "type": "module",
+  "engines": {
+    "node": ">= 18"
+  },
   "scripts": {
     "test": "vitest",
     "dev": "tsx --watch src/server.ts",
-    "knex": "node --no-warnings --import tsx ./node_modules/.bin/knex"
+    "knex": "node --no-warnings --import tsx ./node_modules/.bin/knex",
+    "build": "tsup src"
   },
   "keywords": [],
   "author": "",
@@ -26,6 +30,7 @@
     "@types/supertest": "^6.0.2",
     "supertest": "^7.1.0",
     "ts-node": "^10.9.2",
+    "tsup": "^8.4.0",
     "tsx": "^4.19.3",
     "vite-tsconfig-paths": "^5.1.4",
     "vitest": "^3.0.9"
