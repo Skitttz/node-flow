@@ -1,17 +1,5 @@
-import cookie from "@fastify/cookie";
-import fastify from "fastify";
-import { env } from "./config/env";
-import { transactionRoutes } from "./modules/transactions/routes";
-import { setupRequestLogger } from "./shared/request-logger";
-import { AppRoutesEnum } from "./shared/routes";
-
-const app = fastify();
-
-app.register(cookie);
-setupRequestLogger(app);
-app.register(transactionRoutes, {
-  prefix: AppRoutesEnum.TRANSACTIONS,
-})
+import { app } from "./app"
+import { env } from "./config/env"
 
 
 app.listen({

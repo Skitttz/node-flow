@@ -1,8 +1,11 @@
-import 'dotenv';
-import { configDotenv } from 'dotenv';
+import { config } from "dotenv";
 import { z } from 'zod';
 
-configDotenv();
+if(process.env.NODE_ENV === 'test'){
+  config({path: '.env.test', override: true});
+} else {
+  config({override: true});
+}
 
 const envSchema = z.object({
   NODE_ENV: z.enum(['dev','test','prod']).default('prod'),
@@ -12,9 +15,8 @@ const envSchema = z.object({
 
 export const _env = envSchema.safeParse(process.env)
 if(_env.success === false){
-  console.error(' Invalid env variables', _env.error.format());
+  console.error('Invalid env variables', _env.error.format());
   throw new Error('Invalid env variables.')
 }
 
 export const env = _env.data;
-
