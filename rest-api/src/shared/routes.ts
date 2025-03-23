@@ -2,7 +2,7 @@ enum AppRoutesEnum{
   BASE = '/',
   BASE_BY_ID = '/:id',
   TRANSACTIONS = '/transactions',
-  SUMMARY = '/summary',
+  TRANSACTIONS_SUMMARY = '/summary', 
 }
 
 

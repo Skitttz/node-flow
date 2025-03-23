@@ -4,6 +4,7 @@ function generateCookieConfig (path?: string): CookieSerializeOptions {
   return {
     path: path ?? "/",
     httpOnly: true,
+    sameSite: 'strict',
     maxAge: 60 * 60 * 24 * 7  // Max Age in Fastify is in seconds
   }
 }

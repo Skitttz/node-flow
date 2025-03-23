@@ -1,7 +1,7 @@
+import { PaymentTypeEnum } from "@@transactions/constants"
 import { z } from "zod"
-import { PaymentTypeEnum } from "../constants"
 
-const makeTransactionBodySchema = z.object({
+const createTransactionBodySchema = z.object({
   title: z.string(),
   amount: z.number(),
   type: z.enum(Object.values(PaymentTypeEnum) as [string, ...string[]])
@@ -14,5 +14,5 @@ const transactionByIdSchema = z.object({
 
 
 
-export { makeTransactionBodySchema, transactionByIdSchema }
+export { createTransactionBodySchema, transactionByIdSchema }
 

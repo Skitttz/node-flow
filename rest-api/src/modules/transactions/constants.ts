@@ -1,4 +1,4 @@
-import { StatusCodeHttp } from "@@app/global/constants";
+import { StatusCodeHttpEnum } from "@@app/shared/constants";
 
 enum PaymentTypeEnum{
   CREDIT = 'credit',
@@ -7,31 +7,31 @@ enum PaymentTypeEnum{
 
 const transactionStatusMessages = {
   CREATED: {
-    statusCode: StatusCodeHttp.CREATED,
+    statusCode: StatusCodeHttpEnum.CREATED,
     message: 'Transaction created successfully',
   },
   UPDATED: {
-    statusCode: StatusCodeHttp.OK,
+    statusCode: StatusCodeHttpEnum.OK,
     message: 'Transaction updated successfully',
   },
   DELETED: {
-    statusCode: StatusCodeHttp.OK,
+    statusCode: StatusCodeHttpEnum.OK,
     message: 'Transaction deleted successfully',
   },
   BAD_REQUEST: {
-    statusCode: StatusCodeHttp.BAD_REQUEST,
+    statusCode: StatusCodeHttpEnum.BAD_REQUEST,
     message: 'Invalid transaction',
   },
   NOT_FOUND: {
-    statusCode: StatusCodeHttp.NOT_FOUND,
+    statusCode: StatusCodeHttpEnum.NOT_FOUND,
     message: 'Transaction not found',
   },
   SERVER_ERROR: {
-    statusCode: StatusCodeHttp.INTERNAL_SERVER_ERROR,
+    statusCode: StatusCodeHttpEnum.INTERNAL_SERVER_ERROR,
     message: 'Internal server error',
   },
   UNAUTHORIZED: {
-    statusCode: StatusCodeHttp.UNAUTHORIZED,
+    statusCode: StatusCodeHttpEnum.UNAUTHORIZED,
     message: 'Unauthorized',
   },
 };

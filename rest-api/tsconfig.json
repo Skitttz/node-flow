@@ -9,7 +9,10 @@
     "skipLibCheck": true,                   
     "paths": {
       "@@app/*": ["*"],
-      "@@env/*": ["env/*"],
+      "@@config/*": ["config/*"],
+      "@@shared/*": ["shared/*"],
+      "@@modules/*": ["modules/*"],
+      "@@transactions/*": ["modules/transactions/*"],
     },
     "allowSyntheticDefaultImports": true,
     "plugins": [

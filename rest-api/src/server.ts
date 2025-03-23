@@ -1,9 +1,9 @@
 import cookie from "@fastify/cookie";
 import fastify from "fastify";
-import { env } from "./env";
-import { setupRequestLogger } from "./global/request-logger";
-import { AppRoutesEnum } from "./global/routes";
-import { transactionRoutes } from "./transactions/routes/transactions";
+import { env } from "./config/env";
+import { transactionRoutes } from "./modules/transactions/routes";
+import { setupRequestLogger } from "./shared/request-logger";
+import { AppRoutesEnum } from "./shared/routes";
 
 const app = fastify();
 

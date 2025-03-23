@@ -1,3 +1,4 @@
+import { transactionStatusMessages } from '@@app/modules/transactions/constants';
 import { FastifyInstance } from 'fastify';
 
 function getMethodColor(method: string): string {
@@ -25,12 +26,17 @@ function setupRequestLogger(app: FastifyInstance) {
 
     const methodColor = getMethodColor(request.method);
     const statusColor = getStatusColor(reply.statusCode);
+
+    const {statusCode} = transactionStatusMessages.CREATED;
+    const isPostTransaction = request.method === 'POST' && reply.statusCode === statusCode;
+    const defaultValueSessionId = isPostTransaction ? "Created SessionID" : "Unavailable"
+    
     const url = request.url;
 
     console.log(`
     -------------------------------
     🌐 [${statusColor}] ${methodColor} ${url} 
-    👤 Session ID: ${sessionId ?? "unavailable"}
+    👤 Session ID: ${sessionId ?? defaultValueSessionId}
     -------------------------------
     `);
 
