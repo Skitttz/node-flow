@@ -1,4 +1,4 @@
-enum StatusCodeHttpEnum {
+enum HttpStatusCodeEnum {
   OK = 200,
   CREATED = 201,
   BAD_REQUEST = 400,
@@ -11,5 +11,5 @@ enum CookieKeyEnum {
   SESSION_ID = 'sessiondId',
 }
 
-export { CookieKeyEnum, StatusCodeHttpEnum };
+export { CookieKeyEnum, HttpStatusCodeEnum };
 
