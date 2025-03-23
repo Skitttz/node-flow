@@ -8,33 +8,31 @@ NodeFlow is a structured roadmap for learning Node.js fundamentals, REST API dev
 
 Start with the foundation: Understand the core concepts of Node.js, including the event loop, asynchronous programming, and working with modules. This is where you set up your gear for the climb ahead!
 
-
 ### ⛰️ **Phase 2**: Building a REST API
 
 Build a complete REST API using modern tools and best practices. Implement [TypeScript](https://www.typescriptlang.org/) for type safety, [Fastify](https://fastify.dev/) for high-performance routing, and [Knex](https://knexjs.org/) for database operations. This phase focuses on practical application development with current industry standards.
 
-- ####   Functional Requirements (RF)
+- #### Functional Requirements (RF)
 
-| ID   | Description                                        | Status |
+| ID   | Description                                      | Status |
 | ---- | ------------------------------------------------ | ------ |
-| FR01 | User must be able to create a new transaction    |  🚧 |
-| FR02 | User must be able to get an account summary      |   🚧  |
-| FR03 | User must be able to list all transactions       |   🚧  |
-| FR04 | User must be able to view a specific transaction |   🚧  |
+| FR01 | User must be able to create a new transaction    | ✅     |
+| FR02 | User must be able to get an account summary      | ✅     |
+| FR03 | User must be able to list all transactions       | ✅     |
+| FR04 | User must be able to view a specific transaction | ✅     |
 
 - #### Non-Functional Requirement (NFR)
 
-| ID    | Description                                  | Status |
+| ID    | Description                                | Status |
 | ----- | ------------------------------------------ | ------ |
-| NFR01 | User must be identifiable between requests |   🚧  |
+| NFR01 | User must be identifiable between requests | ✅     |
 
 - #### Business Rules (BR)
 
-| ID   | Description                                                                          | Status |
+| ID   | Description                                                                        | Status |
 | ---- | ---------------------------------------------------------------------------------- | ------ |
-| BR01 | Transaction can be either credit (adds to amount) or debit (subtracts from amount) |   🚧  |
-| BR02 | User can only view transactions they created                                       |   🚧  |
-
+| BR01 | Transaction can be either credit (adds to amount) or debit (subtracts from amount) | ✅     |
+| BR02 | User can only view transactions they created                                       | ✅     |
 
 </br>
 
