@@ -8,7 +8,7 @@ enum HttpStatusCodeEnum {
 }
 
 enum CookieKeyEnum {
-  SESSION_ID = 'sessiondId',
+  SESSION_ID = 'sessionId',
 }
 
 export { CookieKeyEnum, HttpStatusCodeEnum };
