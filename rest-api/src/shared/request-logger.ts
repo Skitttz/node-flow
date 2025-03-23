@@ -29,7 +29,7 @@ function setupRequestLogger(app: FastifyInstance) {
 
     const {statusCode} = transactionStatusMessages.CREATED;
     const isPostTransaction = request.method === 'POST' && reply.statusCode === statusCode;
-    const defaultValueSessionId = isPostTransaction ? "Created SessionID" : "Unavailable"
+    const defaultValueSessionId = isPostTransaction ? "First Transaction -> Generate SessionID" : "Unavailable"
     
     const url = request.url;
 
