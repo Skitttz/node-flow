@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "moduleResolution": "node",
+    "module": "ES6",
+    "baseUrl": "./src",
+    "target": "ES2022",                                 
+    "forceConsistentCasingInFileNames": true,           
+    "strict": true,                                      
+    "skipLibCheck": true,                   
+    "paths": {
+      "@@app/*": ["*"],
+    },
+    "allowSyntheticDefaultImports": true,
+    "plugins": [
+      {
+        "name": "typescript-plugin-paths"
+      }],
+  },
+  "include": ["./src/**/*"],
+  "exclude": ["node_modules"]  
+}
