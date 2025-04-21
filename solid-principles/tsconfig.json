@@ -9,6 +9,8 @@
     "skipLibCheck": true,                   
     "paths": {
       "@@app/*": ["*"],
+      "@@users/*": ["modules/users/*"],
+      "@@shared/*": ["shared/*"],
     },
     "allowSyntheticDefaultImports": true,
     "plugins": [
