@@ -28,7 +28,7 @@ describe('Profile User Flow', () => {
   })
 
   it('should prevent access to user profile using an wrong id', async () => {
-    expect(() =>
+    await expect(() =>
       sut.execute({
         userId: 'non-existing-id',
       }),
