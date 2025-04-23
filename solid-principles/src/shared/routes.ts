@@ -1,6 +1,7 @@
 enum AppRoutesEnum{
   USER = '/users',
-  SESSION = '/sessions'
+  SESSION = '/sessions',
+  PROFILE = '/user/:userID'
 }
 
 
