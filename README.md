@@ -46,12 +46,12 @@ Build a complete gym check-in 🏋🏽 system while learning SOLID principles an
 | ---- | ---------------------------------------------------- | ------ |
 | FR01 | Users must be able to sign up                        | ✅     |
 | FR02 | Users must be able to authenticate                   | ✅     |
-| FR03 | Users must be able to get their profile information  | 🚧     |
-| FR04 | Users must be able to get their total check-in count | 🚧     |
-| FR05 | Users must be able to view their check-in history    | 🚧     |
+| FR03 | Users must be able to get their profile information  | ✅     |
+| FR04 | Users must be able to get their total check-in count | ✅     |
+| FR05 | Users must be able to view their check-in history    | ✅     |
 | FR06 | Users must be able to search for nearby gyms         | 🚧     |
-| FR07 | Users must be able to search for gyms by name        | 🚧     |
-| FR08 | Users must be able to check in at a gym              | 🚧     |
+| FR07 | Users must be able to search for gyms by name        | ✅     |
+| FR08 | Users must be able to check in at a gym              | ✅     |
 | FR09 | Staff must be able to validate user check-ins        | 🚧     |
 | FR10 | Staff must be able to register new gyms              | 🚧     |
 
@@ -60,7 +60,7 @@ Build a complete gym check-in 🏋🏽 system while learning SOLID principles an
 | ID    | Description                                             | Status |
 | ----- | ------------------------------------------------------- | ------ |
 | NFR01 | User passwords must be encrypted                        | ✅     |
-| NFR02 | Application data must be persisted in PostgreSQL        | 🚧     |
+| NFR02 | Application data must be persisted in PostgreSQL        | ✅     |
 | NFR03 | All data lists must be paginated with 20 items per page | 🚧     |
 | NFR04 | Users must be identified using JWT                      | 🚧     |
 
@@ -69,8 +69,8 @@ Build a complete gym check-in 🏋🏽 system while learning SOLID principles an
 | ID   | Description                                                   | Status |
 | ---- | ------------------------------------------------------------- | ------ |
 | BR01 | Users cannot register with a duplicate email                  | ✅     |
-| BR02 | Users cannot perform more than one check-in per day           | 🚧     |
-| BR03 | Users can only check in when within range (100m) of the gym   | 🚧     |
+| BR02 | Users cannot perform more than one check-in per day           | ✅     |
+| BR03 | Users can only check in when within range (100m) of the gym   | ✅     |
 | BR04 | Check-ins can only be validated within 20 minutes of creation | 🚧     |
 | BR05 | Check-ins can only be validated by administrators             | 🚧     |
 | BR06 | Gyms can only be registered by administrators                 | 🚧     |
