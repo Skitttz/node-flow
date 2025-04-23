@@ -8,7 +8,7 @@ export class AuthUserService{
   constructor(private authUserRepository: UsersRepository){}
 
   async execute({email,password} : AuthUserRequest): Promise<AuthUserResponse>{
-    const user = await this.authUserRepository.findUserByEmail({email:email});
+    const user = await this.authUserRepository.findUserByEmail(email);
 
     if(!user){
       throw new UserInvalidCredentials();

@@ -1,15 +1,16 @@
-import { inMemoryRegisterUserRepository } from "@@app/modules/users/shared/repositories/inMemoryRegisterUserRepository";
+
 import { hash } from "bcryptjs";
 import { beforeEach, describe, expect, it } from "vitest";
 import { UserInvalidCredentials } from "../shared/errors/user-invalid-credentials";
+import { inMemoryUsersRepository } from "../shared/repositories/in-memory.user.repository";
 import { AuthUserService } from "./auth.service";
 
-let inMemoryUserRepository: inMemoryRegisterUserRepository;
+let inMemoryUserRepository: inMemoryUsersRepository;
 let sut: AuthUserService;
 
 describe("Auth User Flow", () => {
   beforeEach(() =>{
-    inMemoryUserRepository = new inMemoryRegisterUserRepository();
+    inMemoryUserRepository = new inMemoryUsersRepository();
     sut = new AuthUserService(inMemoryUserRepository);
   })
   it("should authenticate the user with valid credentials", async () =>{

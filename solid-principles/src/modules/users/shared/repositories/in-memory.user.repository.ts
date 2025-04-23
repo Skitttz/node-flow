@@ -14,11 +14,11 @@ export class inMemoryUsersRepository implements UsersRepository {
     return user;
   }
 
-  async checkEmailExists({ email }: { email: string }) {
+  async checkEmailExists(email:string) {
     return existByField(this.items,'email',email);
   }
 
-  async findUserByEmail({ email }: { email: string }) {
+  async findUserByEmail(email:string) {
     const user = this.items.find(item => item.email === email);
 
     if(!user) return null;

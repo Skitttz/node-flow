@@ -8,7 +8,7 @@ export class RegisterUsersService{
 
   async execute({email,name,password}: RegisterUserRequest):  Promise<RegisterUserResponse>{
     const password_hash = await hash(password,6)
-    const hasUserWithSameEmail = await this.registerUserRepository.checkEmailExists({email});
+    const hasUserWithSameEmail = await this.registerUserRepository.checkEmailExists(email);
   
     if(hasUserWithSameEmail){
       throw new UserAlreadyExistsError();
