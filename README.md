@@ -49,7 +49,7 @@ Build a complete gym check-in 🏋🏽 system while learning SOLID principles an
 | FR03 | Users must be able to get their profile information  | ✅     |
 | FR04 | Users must be able to get their total check-in count | ✅     |
 | FR05 | Users must be able to view their check-in history    | ✅     |
-| FR06 | Users must be able to search for nearby gyms         | 🚧     |
+| FR06 | Users must be able to search for nearby gyms         | ✅     |
 | FR07 | Users must be able to search for gyms by name        | ✅     |
 | FR08 | Users must be able to check in at a gym              | ✅     |
 | FR09 | Staff must be able to validate user check-ins        | 🚧     |
