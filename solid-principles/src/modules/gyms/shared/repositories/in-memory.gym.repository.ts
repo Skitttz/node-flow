@@ -23,7 +23,7 @@ export class inMemoryGymsRepository implements GymsRepository {
     return gym
   }
 
-  async findNearbyGyms(params: NearbyGymsParams) {
+  async findNearByGyms(params: NearbyGymsParams) {
     return this.items.filter((item) => {
       const distance = getDistanceBetweenCoordinates(
         { latitude: params.latitude, longitude: params.longitude },

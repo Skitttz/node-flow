@@ -8,7 +8,7 @@ interface NearbyGymsParams {
 interface GymsRepository {
   create(data:Prisma.GymCreateInput): Promise<Gym>
   findGymById(gymId:string): Promise<Gym | null>
-  findNearbyGyms(params: NearbyGymsParams): Promise<Gym[]>
+  findNearByGyms(params: NearbyGymsParams): Promise<Gym[]>
   searchManyGyms(searchTerm: string, page: number): Promise<Gym[]>
 }
 
