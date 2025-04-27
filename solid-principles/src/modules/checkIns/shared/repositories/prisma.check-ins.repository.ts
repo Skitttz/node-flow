@@ -1,5 +1,5 @@
 import { prisma } from "@@app/lib/prisma";
-import { Prisma } from "@prisma/client";
+import { CheckIn, Prisma } from "@prisma/client";
 import dayjs from "dayjs";
 import { CheckInsRepository } from "./check-in.repository.interface";
 
@@ -9,6 +9,26 @@ export class PrismaCheckInRepository implements CheckInsRepository{
       data: {
         user_id: user_id,
         gym_id: gym_id,
+      }
+    })
+    return checkIn;
+  }
+
+  async save(targetCheckIn: CheckIn){
+    const checkIn = await prisma.checkIn.update({
+      where:{
+        id: targetCheckIn.id
+      },
+      data: targetCheckIn,
+    })
+
+    return checkIn;
+  }
+
+  async findById(checkInId:string){
+    const checkIn = await prisma.checkIn.findUnique({
+      where:{
+        id: checkInId,
       }
     })
     return checkIn;
@@ -29,8 +49,6 @@ export class PrismaCheckInRepository implements CheckInsRepository{
       }
     });
     
-    if (!checkInSameDay) return null;
-
     return checkInSameDay;
   }
   
