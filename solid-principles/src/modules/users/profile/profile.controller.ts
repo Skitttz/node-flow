@@ -1,4 +1,3 @@
-import { getJwtErrorResponse, isFastifyJwtError } from "@@app/shared/utils/fastify-jwt";
 import { FastifyReply, FastifyRequest } from "fastify";
 import { userStatusMessages } from "../constants";
 import { UserResourceNotFound } from "../shared/errors/user-resource-not-found";
@@ -17,12 +16,6 @@ export async function profileUserController(request: FastifyRequest,reply: Fasti
         const { statusCode, message } = err
         return reply.status(statusCode).send({statusCode,message})
       }
-
-      if(isFastifyJwtError(err)){
-        const{ statusCode, message} = getJwtErrorResponse(err);
-        return reply.status(statusCode).send({statusCode,message})
-      }
-
       throw err;
     }
     
