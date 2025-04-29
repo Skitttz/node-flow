@@ -1,6 +1,6 @@
 ## 📌 Overview
 
-NodeFlow is a structured roadmap for learning Node.js fundamentals, REST API development, SOLID principles, Domain-Driven Design (DDD), and best practices modules from [Rocketseat](https://www.rocketseat.com.br/) and adjusted by Skittz
+NodeFlow is a structured roadmap for learning Node.js fundamentals, REST API development, SOLID principles, Domain-Driven Design (DDD), and best practices modules
 
 ## 📍 Study Roadmap
 
@@ -12,7 +12,8 @@ Start with the foundation: Understand the core concepts of Node.js, including th
 
 Build a complete REST API using modern tools and best practices. Implement [TypeScript](https://www.typescriptlang.org/) for type safety, [Fastify](https://fastify.dev/) for high-performance routing, and [Knex](https://knexjs.org/) for database operations. This phase focuses on practical application development with current industry standards.
 
-- #### Functional Requirements (RF)
+<details>
+<summary>📜 Functional Requirements (RF)</summary>
 
 | ID   | Description                                      | Status |
 | ---- | ------------------------------------------------ | ------ |
@@ -21,26 +22,33 @@ Build a complete REST API using modern tools and best practices. Implement [Type
 | FR03 | User must be able to list all transactions       | ✅     |
 | FR04 | User must be able to view a specific transaction | ✅     |
 
-- #### Non-Functional Requirement (NFR)
+</details>
+
+<details>
+<summary>📜 Non-Functional Requirements (NFR)</summary>
 
 | ID    | Description                                | Status |
 | ----- | ------------------------------------------ | ------ |
 | NFR01 | User must be identifiable between requests | ✅     |
 
-- #### Business Rules (BR)
+</details>
+
+<details>
+<summary>📜 Business Rules (BR)</summary>
 
 | ID   | Description                                                                        | Status |
 | ---- | ---------------------------------------------------------------------------------- | ------ |
 | BR01 | Transaction can be either credit (adds to amount) or debit (subtracts from amount) | ✅     |
 | BR02 | User can only view transactions they created                                       | ✅     |
 
-</br>
+</details>
 
 ### 🌄 **Phase 3**: SOLID Principles
 
 Build a complete gym check-in 🏋🏽 system while learning SOLID principles and design patterns. Implement authentication with [JWT](https://pt.wikipedia.org/wiki/JSON_Web_Token) and [Refresh Tokens](https://auth0.com/blog/refresh-tokens-what-are-they-and-when-to-use-them/), Role-Based Access Control [(RBAC)](https://en.wikipedia.org/wiki/Role-based_access_control), and database management with [Docker](https://www.docker.com/). This phase combines architectural concepts with practical application.
 
-- #### Functional Requirements (RF)
+<details>
+<summary>📜 Functional Requirements (RF)</summary>
 
 | ID   | Description                                          | Status |
 | ---- | ---------------------------------------------------- | ------ |
@@ -55,7 +63,10 @@ Build a complete gym check-in 🏋🏽 system while learning SOLID principles an
 | FR09 | Staff must be able to validate user check-ins        | 🚧     |
 | FR10 | Staff must be able to register new gyms              | 🚧     |
 
-- #### Non-Functional Requirements (NFR)
+</details>
+
+<details>
+<summary>📜 Non-Functional Requirements (NFR)</summary>
 
 | ID    | Description                                             | Status |
 | ----- | ------------------------------------------------------- | ------ |
@@ -64,7 +75,10 @@ Build a complete gym check-in 🏋🏽 system while learning SOLID principles an
 | NFR03 | All data lists must be paginated with 20 items per page | 🚧     |
 | NFR04 | Users must be identified using JWT                      | 🚧     |
 
-- #### Business Rules (BR)
+</details>
+
+<details>
+<summary>📜 Business Rules (BR)</summary>
 
 | ID   | Description                                                   | Status |
 | ---- | ------------------------------------------------------------- | ------ |
@@ -74,6 +88,8 @@ Build a complete gym check-in 🏋🏽 system while learning SOLID principles an
 | BR04 | Check-ins can only be validated within 20 minutes of creation | 🚧     |
 | BR05 | Check-ins can only be validated by administrators             | 🚧     |
 | BR06 | Gyms can only be registered by administrators                 | 🚧     |
+
+</details>
 
 ### 🏗️ **Phase 4**: Domain-Driven Design (DDD)
 
