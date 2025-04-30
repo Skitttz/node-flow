@@ -7,10 +7,15 @@
     "start:dev": "tsx --watch src/server.ts",
     "build": "tsup src --out-dir build",
     "start:build": "node build/server.js",
-    "test": "vitest run",
+    "test:create-prisma-environment": "npm link ./prisma/vitest/prisma-vitest-environment",
+    "test:install-prisma-environment": "npm link vitest",
+    "test": "vitest run --project unit",
+    "test:e2e": "vitest run --project e2e",
+    "test:e2e:watch": "vitest --project e2e",
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
-    "test:ui": "vitest --ui"
+    "test:ui": "vitest --ui",
+    "biome": "npx biome check ./src --apply"
   },
   "keywords": [],
   "author": "",
@@ -27,6 +32,7 @@
     "zod": "^3.24.2"
   },
   "devDependencies": {
+    "@biomejs/biome": "1.9.4",
     "@types/bcryptjs": "^3.0.0",
     "@types/node": "^22.13.10",
     "@types/supertest": "^6.0.3",
