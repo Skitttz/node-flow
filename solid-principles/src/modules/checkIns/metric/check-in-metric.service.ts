@@ -1,18 +1,18 @@
-import { CheckInsRepository } from '../shared/repositories/check-in.repository.interface';
-import { CheckInsMetricsUserServiceRequest, CheckInsMetricsUserServiceResponse } from './check-in-metric.interface';
+import type { CheckInsRepository } from "../shared/repositories/check-in.repository.interface";
+import type {
+  CheckInsMetricsUserServiceRequest,
+  CheckInsMetricsUserServiceResponse,
+} from "./check-in-metric.interface";
 
-
-export class CheckInsMetricUserService{
+export class CheckInsMetricUserService {
   constructor(private checkInsRepository: CheckInsRepository) {}
 
   async execute({
     userID,
   }: CheckInsMetricsUserServiceRequest): Promise<CheckInsMetricsUserServiceResponse> {
+    const checkInsMetricsUser =
+      await this.checkInsRepository.totalCheckInsByUserId(userID);
 
-    const checkInsMetricsUser = await this.checkInsRepository.totalCheckInsByUserId(
-      userID,
-    )
-
-    return {checkInsCount: checkInsMetricsUser}
+    return { checkInsCount: checkInsMetricsUser };
   }
 }

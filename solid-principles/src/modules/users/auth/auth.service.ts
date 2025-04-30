@@ -1,16 +1,18 @@
-
 import { UserInvalidCredentials } from "@@users/shared/errors/user-invalid-credentials";
 import { compare } from "bcryptjs";
-import { UsersRepository } from "../shared/repositories/user.repository.interface";
-import { AuthUserRequest, AuthUserResponse } from "./auth.dto";
+import type { UsersRepository } from "../shared/repositories/user.repository.interface";
+import type { AuthUserRequest, AuthUserResponse } from "./auth.dto";
 
-export class AuthUserService{
-  constructor(private authUserRepository: UsersRepository){}
+export class AuthUserService {
+  constructor(private authUserRepository: UsersRepository) {}
 
-  async execute({email,password} : AuthUserRequest): Promise<AuthUserResponse>{
+  async execute({
+    email,
+    password,
+  }: AuthUserRequest): Promise<AuthUserResponse> {
     const user = await this.authUserRepository.findUserByEmail(email);
 
-    if(!user){
+    if (!user) {
       throw new UserInvalidCredentials();
     }
 
@@ -21,7 +23,7 @@ export class AuthUserService{
     }
 
     return {
-      user
-    }
+      user,
+    };
   }
 }

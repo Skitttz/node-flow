@@ -1,19 +1,22 @@
 import { HttpStatusCodeEnum } from "../constants";
 
 enum FastifyJwtCodeErrorEnum {
-  FST_JWT_AUTHORIZATION_TOKEN_INVALID = 'FST_JWT_AUTHORIZATION_TOKEN_INVALID',
-  FST_JWT_NO_AUTHORIZATION_IN_HEADER = 'FST_JWT_NO_AUTHORIZATION_IN_HEADER',
-  FST_JWT_AUTHORIZATION_TOKEN_EXPIRED = 'FST_JWT_AUTHORIZATION_TOKEN_EXPIRED',
+  FST_JWT_AUTHORIZATION_TOKEN_INVALID = "FST_JWT_AUTHORIZATION_TOKEN_INVALID",
+  FST_JWT_NO_AUTHORIZATION_IN_HEADER = "FST_JWT_NO_AUTHORIZATION_IN_HEADER",
+  FST_JWT_AUTHORIZATION_TOKEN_EXPIRED = "FST_JWT_AUTHORIZATION_TOKEN_EXPIRED",
 }
 
 enum JwtErrorMessageEnum {
-  INVALID_TOKEN = 'Invalid token',
-  NO_TOKEN_PROVIDED = 'No token provided',
-  TOKEN_EXPIRED = 'Token has expired',
-  GENERIC_AUTH_ERROR = 'Authentication error',
+  INVALID_TOKEN = "Invalid token",
+  NO_TOKEN_PROVIDED = "No token provided",
+  TOKEN_EXPIRED = "Token has expired",
+  GENERIC_AUTH_ERROR = "Authentication error",
 }
 
-const jwtErrorResponseMap: Record<FastifyJwtCodeErrorEnum, { statusCode: number; message: JwtErrorMessageEnum }> = {
+const jwtErrorResponseMap: Record<
+  FastifyJwtCodeErrorEnum,
+  { statusCode: number; message: JwtErrorMessageEnum }
+> = {
   [FastifyJwtCodeErrorEnum.FST_JWT_AUTHORIZATION_TOKEN_INVALID]: {
     statusCode: HttpStatusCodeEnum.UNAUTHORIZED,
     message: JwtErrorMessageEnum.INVALID_TOKEN,
@@ -30,10 +33,17 @@ const jwtErrorResponseMap: Record<FastifyJwtCodeErrorEnum, { statusCode: number;
 
 function isFastifyJwtError(err: unknown): boolean {
   const e = err as { code?: string };
-  return e.code ? Object.values(FastifyJwtCodeErrorEnum).includes(e.code as FastifyJwtCodeErrorEnum) : false;
+  return e.code
+    ? Object.values(FastifyJwtCodeErrorEnum).includes(
+        e.code as FastifyJwtCodeErrorEnum,
+      )
+    : false;
 }
 
-function getJwtErrorResponse(err: unknown): { statusCode: number; message: string } {
+function getJwtErrorResponse(err: unknown): {
+  statusCode: number;
+  message: string;
+} {
   const e = err as { code?: string; statusCode?: number };
 
   if (e.code) {
@@ -54,4 +64,3 @@ function getJwtErrorResponse(err: unknown): { statusCode: number; message: strin
 }
 
 export { getJwtErrorResponse, isFastifyJwtError, jwtErrorResponseMap };
-

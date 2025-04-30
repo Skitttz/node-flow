@@ -1,12 +1,12 @@
-import type { Gym } from "@prisma/client"
+import type { Gym } from "@prisma/client";
 
 interface NearbyGymsServiceRequest {
-  userLatitude: number
-  userLongitude: number,
+  userLatitude: number;
+  userLongitude: number;
 }
 
 interface NearbyGymsServiceResponse {
-  gyms: Gym[]
+  gyms: Gym[];
 }
 
-export type { NearbyGymsServiceRequest, NearbyGymsServiceResponse }
+export type { NearbyGymsServiceRequest, NearbyGymsServiceResponse };

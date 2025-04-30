@@ -1,12 +1,12 @@
-import type { CheckIn } from "@prisma/client"
+import type { CheckIn } from "@prisma/client";
 
 interface CheckInsHistoryServiceRequest {
-  userID: string,
-  page:number,
+  userID: string;
+  page: number;
 }
 
 interface CheckInsHistoryServiceResponse {
-  checkInsHistory: CheckIn[]
+  checkInsHistory: CheckIn[];
 }
 
-export type { CheckInsHistoryServiceRequest, CheckInsHistoryServiceResponse }
+export type { CheckInsHistoryServiceRequest, CheckInsHistoryServiceResponse };

@@ -10,16 +10,16 @@ describe("Gym Flow", () => {
   beforeEach(() => {
     inMemoryGymRepository = new inMemoryGymsRepository();
     sut = new GymService(inMemoryGymRepository);
-  })
-  it("should be able to create gym", async() =>{
-    const {gym} = await sut.execute({
+  });
+  it("should be able to create gym", async () => {
+    const { gym } = await sut.execute({
       title: "Example Gym",
       description: "example description gym",
       latitude: COORDINATES.DEFAULT.LATITUDE,
       longitude: COORDINATES.DEFAULT.LONGITUDE,
-      phone: "11 1111-1111"
-    })
+      phone: "11 1111-1111",
+    });
 
     expect(gym.id).toEqual(expect.any(String));
-  })
-})
+  });
+});

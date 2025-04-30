@@ -1,14 +1,14 @@
-import type { CheckIn } from "@prisma/client"
+import type { CheckIn } from "@prisma/client";
 
 interface CheckInServiceRequest {
-  userId: string
-  gymId: string
-  userLatitude: number,
-  userLongitude: number,
+  userId: string;
+  gymId: string;
+  userLatitude: number;
+  userLongitude: number;
 }
 
 interface CheckInServiceResponse {
-  checkIn: CheckIn
+  checkIn: CheckIn;
 }
 
-export type { CheckInServiceRequest, CheckInServiceResponse }
+export type { CheckInServiceRequest, CheckInServiceResponse };

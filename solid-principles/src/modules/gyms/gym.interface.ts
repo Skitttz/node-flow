@@ -1,15 +1,15 @@
-import type { Gym } from "@prisma/client"
+import type { Gym } from "@prisma/client";
 
 interface GymServiceRequest {
-  title: string
-  description: string
-  phone: string | null
-  latitude: number
-  longitude: number
+  title: string;
+  description: string;
+  phone: string | null;
+  latitude: number;
+  longitude: number;
 }
 
 interface GymServiceResponse {
-  gym: Gym
+  gym: Gym;
 }
 
-export type { GymServiceRequest, GymServiceResponse }
+export type { GymServiceRequest, GymServiceResponse };

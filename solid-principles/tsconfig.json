@@ -3,23 +3,24 @@
     "moduleResolution": "node",
     "module": "ES6",
     "baseUrl": "./src",
-    "target": "ES2022",                                 
-    "forceConsistentCasingInFileNames": true,           
-    "strict": true,                                      
-    "skipLibCheck": true,                   
+    "target": "ES2022",
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "skipLibCheck": true,
     "paths": {
       "@@app/*": ["*"],
       "@@users/*": ["modules/users/*"],
       "@@checkIns/*": ["modules/checkIns/*"],
       "@@gyms/*": ["modules/gyms/*"],
-      "@@shared/*": ["shared/*"],
+      "@@shared/*": ["shared/*"]
     },
     "allowSyntheticDefaultImports": true,
     "plugins": [
       {
         "name": "typescript-plugin-paths"
-      }],
+      }
+    ]
   },
   "include": ["./src/**/*"],
-  "exclude": ["node_modules"]  
+  "exclude": ["node_modules"]
 }

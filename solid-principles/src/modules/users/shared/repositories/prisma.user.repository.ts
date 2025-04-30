@@ -1,42 +1,42 @@
 import { prisma } from "@@app/lib/prisma";
-import { Prisma } from "@prisma/client";
-import { UsersRepository } from "./user.repository.interface";
+import type { Prisma } from "@prisma/client";
+import type { UsersRepository } from "./user.repository.interface";
 
-export class PrismaUserRepository implements UsersRepository{
-  async create(data: Prisma.UserCreateInput){
+export class PrismaUserRepository implements UsersRepository {
+  async create(data: Prisma.UserCreateInput) {
     const user = await prisma.user.create({
-      data
-    })
+      data,
+    });
     return user;
   }
 
-  async findUserByEmail(email:string){
+  async findUserByEmail(email: string) {
     const user = await prisma.user.findUnique({
-      where:{
+      where: {
         email,
-      }
-    })
-    
-  return user;
+      },
+    });
+
+    return user;
   }
 
-  async findUserById({id}: {id:string}){
+  async findUserById({ id }: { id: string }) {
     const user = await prisma.user.findUnique({
-      where:{
+      where: {
         id,
-      }
-    })
-    
-  return user;
+      },
+    });
+
+    return user;
   }
 
-  async checkEmailExists(email:string){
+  async checkEmailExists(email: string) {
     const hasUserWithSameEmail = await prisma.user.findUnique({
-      where:{
+      where: {
         email,
-      }
-    })
+      },
+    });
 
-  return Boolean(hasUserWithSameEmail);
+    return Boolean(hasUserWithSameEmail);
   }
 }

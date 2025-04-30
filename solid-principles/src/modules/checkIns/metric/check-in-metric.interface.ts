@@ -1,11 +1,12 @@
-
 interface CheckInsMetricsUserServiceRequest {
-  userID: string,
+  userID: string;
 }
 
 interface CheckInsMetricsUserServiceResponse {
   checkInsCount: number;
 }
 
-export type { CheckInsMetricsUserServiceRequest, CheckInsMetricsUserServiceResponse };
-
+export type {
+  CheckInsMetricsUserServiceRequest,
+  CheckInsMetricsUserServiceResponse,
+};

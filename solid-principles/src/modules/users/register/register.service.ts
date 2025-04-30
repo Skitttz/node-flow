@@ -1,16 +1,21 @@
 import { UserAlreadyExistsError } from "@@users/shared/errors/user-already-exist";
-import { UsersRepository } from "@@users/shared/repositories/user.repository.interface";
+import type { UsersRepository } from "@@users/shared/repositories/user.repository.interface";
 import { hash } from "bcryptjs";
-import { RegisterUserRequest, RegisterUserResponse } from "./register.dto";
+import type { RegisterUserRequest, RegisterUserResponse } from "./register.dto";
 
-export class RegisterUsersService{
-  constructor(private registerUserRepository: UsersRepository){}
+export class RegisterUsersService {
+  constructor(private registerUserRepository: UsersRepository) {}
 
-  async execute({email,name,password}: RegisterUserRequest):  Promise<RegisterUserResponse>{
-    const password_hash = await hash(password,6)
-    const hasUserWithSameEmail = await this.registerUserRepository.checkEmailExists(email);
-  
-    if(hasUserWithSameEmail){
+  async execute({
+    email,
+    name,
+    password,
+  }: RegisterUserRequest): Promise<RegisterUserResponse> {
+    const password_hash = await hash(password, 6);
+    const hasUserWithSameEmail =
+      await this.registerUserRepository.checkEmailExists(email);
+
+    if (hasUserWithSameEmail) {
       throw new UserAlreadyExistsError();
     }
 
@@ -18,8 +23,8 @@ export class RegisterUsersService{
       name,
       email,
       password_hash,
-    })
+    });
 
-    return { user }
+    return { user };
   }
 }

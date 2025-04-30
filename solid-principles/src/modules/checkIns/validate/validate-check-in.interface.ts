@@ -5,8 +5,7 @@ interface ValidateCheckInServiceRequest {
 }
 
 interface ValidateCheckInServiceResponse {
-  checkIn: CheckIn
+  checkIn: CheckIn;
 }
 
 export type { ValidateCheckInServiceRequest, ValidateCheckInServiceResponse };
-

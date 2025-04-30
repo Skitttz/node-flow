@@ -1,10 +1,10 @@
 import { CookieKeyEnum } from "@@app/shared/constants";
 import { generateCookieConfig } from "@@app/shared/cookies";
-import { PaymentTypeEnum, transactionStatusMessages } from "@@transactions/constants";
+import { transactionStatusMessages, type PaymentTypeEnum } from "@@transactions/constants";
 import { createTransactionBodySchema, transactionByIdSchema } from "@@transactions/schemas";
 import { TransactionService } from "@@transactions/services";
-import { IPostTransaction } from "@@transactions/types";
-import { FastifyReply, FastifyRequest } from "fastify";
+import type { IPostTransaction } from "@@transactions/types";
+import type { FastifyReply, FastifyRequest } from "fastify";
 import { ZodError } from "zod";
 
 async function getList(request: FastifyRequest, reply: FastifyReply) {
