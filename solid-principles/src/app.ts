@@ -1,3 +1,4 @@
+import fastifyCookie from "@fastify/cookie";
 import fastifyJwt from "@fastify/jwt";
 import fastify from "fastify";
 import { ZodError } from "zod";
@@ -13,7 +14,12 @@ app.register(fastifyJwt, {
   sign: {
     expiresIn: "10m",
   },
+  cookie:{
+    cookieName:"refreshToken",
+    signed: false,
+  }
 });
+app.register(fastifyCookie);
 app.register(userRoutes);
 app.register(checkInRoutes);
 app.register(gymRoutes);
