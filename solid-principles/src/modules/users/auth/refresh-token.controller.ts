@@ -8,7 +8,6 @@ export async function refreshTokenUserController(
   await request.jwtVerify({onlyCookie: true})
 
   const {role,sub} = request.user;
-  console.log("role:::",role)
 
   const token = await reply.jwtSign(
       {role},
