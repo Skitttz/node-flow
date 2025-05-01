@@ -1,9 +1,11 @@
 import "@fastify/jwt";
+import type { UserRole } from "./types";
 
 declare module "@fastify/jwt" {
   export interface FastifyJWT {
     user: {
-      sub: string;
+      role: UserRole
+      sub: string
     };
   }
 }
