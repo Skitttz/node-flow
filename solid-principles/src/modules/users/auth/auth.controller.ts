@@ -14,7 +14,9 @@ export async function authUserController(
     const authUserService = makeAuthUserService();
     const { user } = await authUserService.execute({ email, password });
     const token = await reply.jwtSign(
-      {},
+      {
+        role: user.role
+      },
       {
         sign: {
           sub: user.id,
@@ -23,14 +25,25 @@ export async function authUserController(
     );
 
     const refreshToken = await reply.jwtSign(
-      {},
+      {
+        role: user.role
+      },
       {
         sign: {
           sub: user.id,
+          expiresIn:'7d',
         },
       },
     );
-    return reply.status(HttpStatusCodeEnum.OK).send({ token });
+    return reply
+    .setCookie('refreshToken', refreshToken, {
+      path: '/',
+      secure:true,
+      sameSite: true,
+      httpOnly: true,
+    })
+    .status(HttpStatusCodeEnum.OK)
+    .send({ token });
   } catch (err: unknown) {
     if (err instanceof UserInvalidCredentials) {
       const { statusCode, message } = err;
