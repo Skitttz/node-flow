@@ -6,6 +6,6 @@ export default defineConfig({
   plugins: [tsConfigPaths()],
   test: {
     globals: true,
-    environment: 'jsdom',
+    environment: 'node', // ou 'jsdom', dependendo do que você precisa
   },
 } as UserConfig)
