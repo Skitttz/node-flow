@@ -1,6 +1,10 @@
 export class Slug {
   private constructor(public readonly value: string) {}
 
+  static create(slug: string){
+    return new Slug(slug);
+  }
+
   static createFromText(text: string): Slug {
     if (!text || typeof text !== 'string') {
       throw new Error('Text must be a non-empty string');
