@@ -10,4 +10,21 @@ interface CreateQuestionUseCaseResponse {
 	question: Question;
 }
 
-export type { CreateQuestionUseCaseRequest, CreateQuestionUseCaseResponse };
+interface GetQuestionBySlugUseCaseRequest {
+	slug: string;
+}
+interface GetQuestionBySlugUseCaseResponse {
+	question: Question;
+}
+
+interface DeleteQuestionUseCaseRequest {
+	questionId: string;
+	authorId: string;
+}
+
+export type {
+	CreateQuestionUseCaseRequest,
+	CreateQuestionUseCaseResponse, DeleteQuestionUseCaseRequest, GetQuestionBySlugUseCaseRequest,
+	GetQuestionBySlugUseCaseResponse
+};
+
