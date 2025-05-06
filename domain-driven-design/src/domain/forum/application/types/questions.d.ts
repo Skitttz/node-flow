@@ -1,14 +1,13 @@
+import type { Question } from "../../enterprise/entities/question";
+
 interface CreateQuestionUseCaseRequest {
-  authorId:string
-  title:string
-  content: string
+	authorId: string;
+	title: string;
+	content: string;
 }
 
-interface CreateQuestionUseCaseResponse{
-  question: Question;
+interface CreateQuestionUseCaseResponse {
+	question: Question;
 }
-
-
 
 export type { CreateQuestionUseCaseRequest, CreateQuestionUseCaseResponse };
-
