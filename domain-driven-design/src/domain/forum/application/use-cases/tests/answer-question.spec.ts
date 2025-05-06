@@ -17,6 +17,6 @@ describe("Create Answer Question Flow", () => {
 		});
 
     expect(answer.id).toBeTruthy()
-    expect(inMemoryAnswersRepository.items[0].authorId).toEqual(answer.id)
+    expect(inMemoryAnswersRepository.items[0].id).toEqual(answer.id)
 	});
 });
