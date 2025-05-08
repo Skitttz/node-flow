@@ -7,11 +7,19 @@ import type {
 } from "../../types/questions";
 
 export class CreateQuestionUseCase {
-	constructor(private questionsRepository: QuestionsRepository) {}
+  constructor(private questionsRepository: QuestionsRepository) {}
 
-	async execute({authorId,content,title}: CreateQuestionUseCaseRequest): Promise<CreateQuestionUseCaseResponse> {
-    const question = Question.create({authorId: new UniqueID(authorId),content,title})
+  async execute({
+    authorId,
+    content,
+    title,
+  }: CreateQuestionUseCaseRequest): Promise<CreateQuestionUseCaseResponse> {
+    const question = Question.create({
+      authorId: new UniqueID(authorId),
+      content,
+      title,
+    });
     await this.questionsRepository.create(question);
-    return {question}
+    return { question };
   }
 }

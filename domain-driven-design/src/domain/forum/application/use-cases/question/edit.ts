@@ -1,13 +1,15 @@
 import type { QuestionsRepository } from "../../repositories/questions-repository";
-import type { DeleteQuestionUseCaseRequest } from "../../types/questions";
+import type { EditQuestionUseCaseRequest, EditQuestionUseCaseResponse } from "../../types/questions";
 
-export class DeleteQuestionUseCase {
+export class EditQuestionUseCase {
   constructor(private questionsRepository: QuestionsRepository) {}
 
   async execute({
-    questionId,
     authorId,
-  }: DeleteQuestionUseCaseRequest): Promise<void> {
+    questionId,
+    content,
+    title,
+  }: EditQuestionUseCaseRequest): Promise<EditQuestionUseCaseResponse> {
     const question = await this.questionsRepository.findById(questionId);
 
     if (!question) {
@@ -17,7 +19,13 @@ export class DeleteQuestionUseCase {
     if (authorId !== question.authorId.toString()) {
       throw new Error("Unauthorized");
     }
+    question.title = title;
+    question.content = content;
 
-    await this.questionsRepository.delete(question);
+    await this.questionsRepository.edit(question);
+
+    return {
+      question
+    }
   }
 }
