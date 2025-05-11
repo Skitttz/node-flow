@@ -4,7 +4,7 @@ import { InMemoryQuestionsRepository } from "tests/repositories/in-memory-questi
 import { buildAnswer } from "./build-answer";
 import { buildQuestion } from "./build-question";
 
-export async function createManyItems({
+export async function buildManyItems({
 	repository,
 	numberofItems,
 	options,
