@@ -7,22 +7,40 @@ import type {
 } from "@@src/domain/forum/enterprise/entities/types/comment";
 import { faker } from "@faker-js/faker";
 
-export function buildComment(
-	type: "Question" | "Answer",
-	overide: Partial<QuestionCommentProps | AnswerCommentProps> = {},
-	id?: UniqueID,
-) {
+type CommentTypeMap = {
+	Question: {
+		props: QuestionCommentProps;
+		instance: QuestionComment;
+	};
+	Answer: {
+		props: AnswerCommentProps;
+		instance: AnswerComment;
+	};
+};
+
+export function buildComment<T extends keyof CommentTypeMap>(params: {
+	type: T;
+	overide?: Partial<CommentTypeMap[T]["props"]>;
+	id?: UniqueID;
+}): CommentTypeMap[T]["instance"];
+
+export function buildComment<T extends keyof CommentTypeMap>(params: {
+	type: T;
+	overide?: Partial<CommentTypeMap[T]["props"]>;
+	id?: UniqueID;
+}): QuestionComment | AnswerComment {
+	const { type, overide = {}, id } = params;
+
 	if (type === "Question") {
 		const questionComment = QuestionComment.create(
 			{
 				authorId: new UniqueID(),
 				questionId: new UniqueID(),
 				content: faker.lorem.text(),
-				...overide,
+				...(overide as Partial<QuestionCommentProps>),
 			},
 			id,
 		);
-
 		return questionComment;
 	}
 
@@ -31,10 +49,9 @@ export function buildComment(
 			authorId: new UniqueID(),
 			answerId: new UniqueID(),
 			content: faker.lorem.text(),
-			...overide,
+			...(overide as Partial<AnswerCommentProps>),
 		},
 		id,
 	);
-
 	return answerComment;
 }
