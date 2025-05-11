@@ -1,3 +1,4 @@
+import { UniqueID } from "@@src/core/entities/unique-id";
 import { buildComment } from "tests/factories/build-comment";
 import { InMemoryAnswerCommentsRepository } from "tests/repositories/in-memory-comments-repository";
 import { DeleteAnswerCommentUseCase } from "../comment/delete-comment-answer";
@@ -23,5 +24,23 @@ describe("Delete Comment Answer flow", () => {
 		});
 
 		expect(inMemoryAnswerCommentsRepository.items).toHaveLength(0);
+	});
+
+	it("should not allowed to delete another user comment on answer", async () => {
+		const newAnswerComment = buildComment({
+			type: "Answer",
+			overide: {
+				authorId: new UniqueID("another-author-id"),
+			},
+		});
+
+		await inMemoryAnswerCommentsRepository.create(newAnswerComment);
+
+		await expect(() => {
+			return sut.execute({
+				answerCommentId: newAnswerComment.id.toString(),
+				authorId: "author-id",
+			});
+		}).rejects.toBeInstanceOf(Error);
 	});
 });
