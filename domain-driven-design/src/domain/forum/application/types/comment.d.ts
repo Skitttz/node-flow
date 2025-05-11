@@ -31,6 +31,24 @@ interface DeleteCommentAnswerUseCaseRequest {
 	answerCommentId: string;
 }
 
+interface ListCommentsAnswerUseCaseRequest {
+	page: number;
+	answerId: string;
+}
+
+interface ListCommentsAnswerUseCaseResponse {
+	answerComments: AnswerComment[];
+}
+
+interface ListCommentsQuestionUseCaseRequest {
+	page: number;
+	questionId: string;
+}
+
+interface ListCommentsQuestionUseCaseResponse {
+	questionComments: QuestionComment[];
+}
+
 export type {
 	CommentAnswerUseCaseRequest,
 	CommentAnswerUseCaseResponse,
@@ -38,4 +56,8 @@ export type {
 	CommentQuestionUseCaseResponse,
 	DeleteCommentAnswerUseCaseRequest,
 	DeleteCommentQuestionUseCaseRequest,
+	ListCommentsAnswerUseCaseRequest,
+	ListCommentsAnswerUseCaseResponse,
+	ListCommentsQuestionUseCaseRequest,
+	ListCommentsQuestionUseCaseResponse,
 };
