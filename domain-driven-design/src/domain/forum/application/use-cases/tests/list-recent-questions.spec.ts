@@ -1,4 +1,4 @@
-import { createManyItems } from "tests/factories/build-many";
+import { buildManyItems } from "tests/factories/build-many";
 import { InMemoryAnswersRepository } from "tests/repositories/in-memory-answers-repository";
 import { ListAnswerUseCase } from "../answer/list";
 
@@ -11,7 +11,7 @@ describe("List Answers by Question Flow", () => {
 		sut = new ListAnswerUseCase(answeinMemoryAnswersRepositorys);
 	});
 	it("should be able to show list answers", async () => {
-		await createManyItems({
+		await buildManyItems({
 			repository: answeinMemoryAnswersRepositorys,
 			numberofItems: 8,
 			questionId: "example-question",
@@ -25,7 +25,7 @@ describe("List Answers by Question Flow", () => {
 		expect(answers).toHaveLength(8);
 	});
 	it("should be able to show paginated answers", async () => {
-		await createManyItems({
+		await buildManyItems({
 			repository: answeinMemoryAnswersRepositorys,
 			numberofItems: 24,
 			questionId: "example-question",

@@ -1,4 +1,4 @@
-import { createManyItems } from "tests/factories/build-many";
+import { buildManyItems } from "tests/factories/build-many";
 import { InMemoryQuestionsRepository } from "tests/repositories/in-memory-questions-repository";
 import { ListRecentQuestionUseCase } from "../question/list-recent";
 
@@ -11,7 +11,7 @@ describe("List Recent Questions flow", () => {
 		sut = new ListRecentQuestionUseCase(inMemoryQuestionsRepository);
 	});
 	it("should be able to show list recent questions", async () => {
-		await createManyItems({
+		await buildManyItems({
 			repository: inMemoryQuestionsRepository,
 			numberofItems: 4,
 			options: { createdAtStart: new Date(2022, 0, 1) },
@@ -29,7 +29,7 @@ describe("List Recent Questions flow", () => {
 		]);
 	});
 	it("should be able to show paginated recent questions", async () => {
-		await createManyItems({
+		await buildManyItems({
 			repository: inMemoryQuestionsRepository,
 			numberofItems: 24,
 			options: { createdAtStart: new Date(2022, 0, 1) },
