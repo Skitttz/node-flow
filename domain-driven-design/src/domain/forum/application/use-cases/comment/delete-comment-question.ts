@@ -1,4 +1,4 @@
-import type { QuestionsCommentRepository } from "../../repositories/questions-comment-repository";
+import type { QuestionsCommentRepository } from "../../repositories/comments-repository";
 import type { DeleteCommentQuestionUseCaseRequest } from "../../types/comment";
 
 export class DeleteQuestionCommentUseCase {

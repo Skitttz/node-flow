@@ -1,7 +1,7 @@
 import { UniqueID } from "@@src/core/entities/unique-id";
 import { AnswerComment } from "@@src/domain/forum/enterprise/entities/comment/answer";
-import type { AnswerCommentRepository } from "../../repositories/answers-comment-repository";
 import type { AnswersRepository } from "../../repositories/answers-repository";
+import type { AnswerCommentRepository } from "../../repositories/comments-repository";
 import type {
 	CommentAnswerUseCaseRequest,
 	CommentAnswerUseCaseResponse,
