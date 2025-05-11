@@ -1,6 +1,6 @@
 import { UniqueID } from "@@src/core/entities/unique-id";
 import { QuestionComment } from "@@src/domain/forum/enterprise/entities/comment/question";
-import type { QuestionsCommentRepository } from "../../repositories/questions-comment-repository";
+import type { QuestionsCommentRepository } from "../../repositories/comments-repository";
 import type { QuestionsRepository } from "../../repositories/questions-repository";
 import type {
 	CommentQuestionUseCaseRequest,
