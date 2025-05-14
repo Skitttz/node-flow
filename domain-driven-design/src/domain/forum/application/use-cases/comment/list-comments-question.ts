@@ -1,3 +1,4 @@
+import { right } from "@@src/core/either";
 import type { QuestionsCommentRepository } from "../../repositories/comments-repository";
 import type {
 	ListCommentsQuestionUseCaseRequest,
@@ -16,8 +17,6 @@ export class ListCommentsQuestionUseCase {
 				page,
 			});
 
-		return {
-			questionComments,
-		};
+		return right({ questionComments });
 	}
 }

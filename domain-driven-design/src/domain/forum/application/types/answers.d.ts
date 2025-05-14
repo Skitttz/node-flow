@@ -1,4 +1,8 @@
+import type { Either } from "@@src/core/either";
+import type { NotFoundError } from "@@src/core/errors/not-found";
+import type { UnauthorizedError } from "@@src/core/errors/unauthorized";
 import type { Answer } from "../../enterprise/entities/answer";
+import type { Question } from "../../enterprise/entities/question";
 
 interface AnswerQuestionUseCaseRequest {
 	instructorId: string;
@@ -6,14 +10,17 @@ interface AnswerQuestionUseCaseRequest {
 	content: string;
 }
 
-interface AnswerQuestionUseCaseResponse {
-	answer: Answer;
-}
+type AnswerQuestionUseCaseResponse = Either<null, { answer: Answer }>;
 
 interface DeleteAnswerUseCaseRequest {
 	answerId: string;
 	authorId: string;
 }
+
+type DeleteAnswerUseCaseResponse = Either<
+	UnauthorizedError | NotFoundError,
+	{}
+>;
 
 interface EditAnswerUseCaseRequest {
 	authorId: string;
@@ -21,27 +28,32 @@ interface EditAnswerUseCaseRequest {
 	content: string;
 }
 
-interface EditAnswerUseCaseResponse {
-	answer: Answer;
-}
+type EditAnswerUseCaseResponse = Either<
+	NotFoundError | UnauthorizedError,
+	{ answer: Answer }
+>;
 
 interface ChooseBestAnswerUseCaseRequest {
 	answerId: string;
 	authorId: string;
 }
 
-interface ChooseBestAnswerUseCaseResponse {
-	answer: Answer;
-}
+type ChooseBestAnswerUseCaseResponse = Either<
+	NotFoundError | UnauthorizedError,
+	{ question: Question }
+>;
 
 interface ListAnswersUseCaseRequest {
 	page: number;
 	questionId: string;
 }
 
-interface ListAnswersUseCaseResponse {
-	answers: Answer[];
-}
+type ListAnswersUseCaseResponse = Either<
+	null,
+	{
+		answers: Answer[];
+	}
+>;
 
 export type {
 	AnswerQuestionUseCaseRequest,
@@ -49,6 +61,7 @@ export type {
 	ChooseBestAnswerUseCaseRequest,
 	ChooseBestAnswerUseCaseResponse,
 	DeleteAnswerUseCaseRequest,
+	DeleteAnswerUseCaseResponse,
 	EditAnswerUseCaseRequest,
 	EditAnswerUseCaseResponse,
 	ListAnswersUseCaseRequest,

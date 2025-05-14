@@ -1,3 +1,4 @@
+import { right } from "@@src/core/either";
 import type { AnswersRepository } from "../../repositories/answers-repository";
 import type {
 	ListAnswersUseCaseRequest,
@@ -16,8 +17,6 @@ export class ListAnswerUseCase {
 			{ page },
 		);
 
-		return {
-			answers,
-		};
+		return right({ answers });
 	}
 }

@@ -1,23 +1,31 @@
+import { left, right } from "@@src/core/either";
+import { NotFoundError } from "@@src/core/errors/not-found";
+import { UnauthorizedError } from "@@src/core/errors/unauthorized";
 import type { AnswersRepository } from "../../repositories/answers-repository";
-import type { DeleteAnswerUseCaseRequest } from "../../types/answers";
+import type {
+	DeleteAnswerUseCaseRequest,
+	DeleteAnswerUseCaseResponse,
+} from "../../types/answers";
 
 export class DeleteAnswerUseCase {
-  constructor(private answersRepository: AnswersRepository) {}
+	constructor(private answersRepository: AnswersRepository) {}
 
-  async execute({
-    answerId,
-    authorId,
-  }: DeleteAnswerUseCaseRequest): Promise<void> {
-    const answer = await this.answersRepository.findById(answerId);
+	async execute({
+		answerId,
+		authorId,
+	}: DeleteAnswerUseCaseRequest): Promise<DeleteAnswerUseCaseResponse> {
+		const answer = await this.answersRepository.findById(answerId);
 
-    if (!answer) {
-      throw new Error("Answer not found");
-    }
+		if (!answer) {
+			return left(new NotFoundError());
+		}
 
-    if (authorId !== answer.authorId.toString()) {
-      throw new Error("Unauthorized");
-    }
+		if (authorId !== answer.authorId.toString()) {
+			return left(new UnauthorizedError());
+		}
 
-    await this.answersRepository.delete(answer);
-  }
+		await this.answersRepository.delete(answer);
+
+		return right({});
+	}
 }

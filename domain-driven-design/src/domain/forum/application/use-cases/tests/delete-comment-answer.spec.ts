@@ -1,4 +1,5 @@
 import { UniqueID } from "@@src/core/entities/unique-id";
+import { UnauthorizedError } from "@@src/core/errors/unauthorized";
 import { buildComment } from "tests/factories/build-comment";
 import { InMemoryAnswerCommentsRepository } from "tests/repositories/in-memory-comments-repository";
 import { DeleteAnswerCommentUseCase } from "../comment/delete-comment-answer";
@@ -36,11 +37,12 @@ describe("Delete Comment Answer flow", () => {
 
 		await inMemoryAnswerCommentsRepository.create(newAnswerComment);
 
-		await expect(() => {
-			return sut.execute({
-				answerCommentId: newAnswerComment.id.toString(),
-				authorId: "author-id",
-			});
-		}).rejects.toBeInstanceOf(Error);
+		const result = await sut.execute({
+			answerCommentId: newAnswerComment.id.toString(),
+			authorId: "author-id",
+		});
+
+		expect(result.isLeft()).toBe(true);
+		expect(result.value).toBeInstanceOf(UnauthorizedError);
 	});
 });

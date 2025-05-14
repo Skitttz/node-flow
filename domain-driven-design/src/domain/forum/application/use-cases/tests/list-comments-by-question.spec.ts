@@ -22,12 +22,12 @@ describe("List Comments by Question flow", () => {
 			questionId: newUniqueIDCommentsQuestion,
 		});
 
-		const { questionComments } = await sut.execute({
+		const result = await sut.execute({
 			page: 1,
 			questionId: newUniqueIDCommentsQuestion,
 		});
 
-		expect(questionComments).toHaveLength(3);
+		expect(result.value?.questionComments).toHaveLength(3);
 	});
 	it("should be able to show paginated comments by question", async () => {
 		const newUniqueIDCommentsQuestion = new UniqueID(
@@ -40,11 +40,11 @@ describe("List Comments by Question flow", () => {
 			questionId: newUniqueIDCommentsQuestion,
 		});
 
-		const { questionComments } = await sut.execute({
+		const result = await sut.execute({
 			page: 2,
 			questionId: newUniqueIDCommentsQuestion,
 		});
 
-		expect(questionComments).toHaveLength(4);
+		expect(result.value?.questionComments).toHaveLength(4);
 	});
 });

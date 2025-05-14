@@ -1,51 +1,67 @@
+import type { Either } from "@@src/core/either";
+import type { NotFoundError } from "@@src/core/errors/not-found";
+import type { UnauthorizedError } from "@@src/core/errors/unauthorized";
 import type { Question } from "../../enterprise/entities/question";
 
 interface CreateQuestionUseCaseRequest {
-  authorId: string;
-  title: string;
-  content: string;
+	authorId: string;
+	title: string;
+	content: string;
 }
 
-interface CreateQuestionUseCaseResponse {
-  question: Question;
-}
+type CreateQuestionUseCaseResponse = Either<null, { question: Question }>;
 
 interface GetQuestionBySlugUseCaseRequest {
-  slug: string;
+	slug: string;
 }
-interface GetQuestionBySlugUseCaseResponse {
-  question: Question;
-}
+
+type GetQuestionBySlugUseCaseResponse = Either<
+	NotFoundError,
+	{ question: Question }
+>;
 
 interface DeleteQuestionUseCaseRequest {
-  questionId: string;
-  authorId: string;
+	questionId: string;
+	authorId: string;
 }
+
+type DeleteQuestionUseCaseResponse = Either<
+	NotFoundError | UnauthorizedError,
+	{}
+>;
 
 interface EditQuestionUseCaseRequest {
-  authorId: string;
-  questionId: string;
-  title: string;
-  content: string;
+	authorId: string;
+	questionId: string;
+	title: string;
+	content: string;
 }
 
-interface EditQuestionUseCaseResponse {
-  question: Question;
+type EditQuestionUseCaseResponse = Either<
+	NotFoundError | UnauthorizedError,
+	{ question: Question }
+>;
+
+interface ListRecentQuestionsUseCaseRequest {
+	page: number;
 }
 
-interface ListRecentQuestionsUseCaseRequest{
-  page:number
-}
-
-interface ListRecentQuestionsUseCaseResponse{
-  questions: Question[];
-}
+type ListRecentQuestionsUseCaseResponse = Either<
+	null,
+	{
+		questions: Question[];
+	}
+>;
 
 export type {
-  CreateQuestionUseCaseRequest, CreateQuestionUseCaseResponse,
-  DeleteQuestionUseCaseRequest,
-  EditQuestionUseCaseRequest, EditQuestionUseCaseResponse,
-  GetQuestionBySlugUseCaseRequest, GetQuestionBySlugUseCaseResponse,
-  ListRecentQuestionsUseCaseRequest, ListRecentQuestionsUseCaseResponse
+	CreateQuestionUseCaseRequest,
+	CreateQuestionUseCaseResponse,
+	DeleteQuestionUseCaseRequest,
+	DeleteQuestionUseCaseResponse,
+	EditQuestionUseCaseRequest,
+	EditQuestionUseCaseResponse,
+	GetQuestionBySlugUseCaseRequest,
+	GetQuestionBySlugUseCaseResponse,
+	ListRecentQuestionsUseCaseRequest,
+	ListRecentQuestionsUseCaseResponse,
 };
-

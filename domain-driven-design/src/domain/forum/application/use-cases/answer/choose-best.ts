@@ -1,6 +1,12 @@
+import { left, right } from "@@src/core/either";
+import { NotFoundError } from "@@src/core/errors/not-found";
+import { UnauthorizedError } from "@@src/core/errors/unauthorized";
 import type { AnswersRepository } from "../../repositories/answers-repository";
 import type { QuestionsRepository } from "../../repositories/questions-repository";
-import type { ChooseBestAnswerUseCaseRequest } from "../../types/answers";
+import type {
+	ChooseBestAnswerUseCaseRequest,
+	ChooseBestAnswerUseCaseResponse,
+} from "../../types/answers";
 
 export class ChooseBestAnswerUseCase {
 	constructor(
@@ -8,28 +14,31 @@ export class ChooseBestAnswerUseCase {
 		private questionsRepository: QuestionsRepository,
 	) {}
 
-	async execute({ answerId, authorId }: ChooseBestAnswerUseCaseRequest) {
-    const answer = await this.answersRepository.findById(answerId);
-    if (!answer) {
-      throw new Error("Answer not found");
-    }
-    
-		const question = await this.questionsRepository.findById(answer?.questionId.toString());
-
-    if (!question) {
-			throw new Error("Question not found");
+	async execute({
+		answerId,
+		authorId,
+	}: ChooseBestAnswerUseCaseRequest): Promise<ChooseBestAnswerUseCaseResponse> {
+		const answer = await this.answersRepository.findById(answerId);
+		if (!answer) {
+			return left(new NotFoundError());
 		}
 
-		if(authorId !== question.authorId.toString()){
-      throw new Error ("Unauthorized");
-    }
+		const question = await this.questionsRepository.findById(
+			answer?.questionId.toString(),
+		);
 
-    question.bestAnswerId = answer.id;
+		if (!question) {
+			return left(new NotFoundError());
+		}
 
-    await this.questionsRepository.edit(question);
+		if (authorId !== question.authorId.toString()) {
+			return left(new UnauthorizedError());
+		}
 
-    return {
-      question
-    }
+		question.bestAnswerId = answer.id;
+
+		await this.questionsRepository.edit(question);
+
+		return right({ question });
 	}
 }

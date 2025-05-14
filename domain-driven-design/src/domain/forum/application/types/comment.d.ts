@@ -1,3 +1,6 @@
+import type { Either } from "@@src/core/either";
+import type { NotFoundError } from "@@src/core/errors/not-found";
+import type { UnauthorizedError } from "@@src/core/errors/unauthorized";
 import type { AnswerComment } from "../../enterprise/entities/comment/answer";
 import type { QuestionComment } from "../../enterprise/entities/comment/question";
 
@@ -17,9 +20,10 @@ interface CommentAnswerUseCaseRequest {
 	content: string;
 }
 
-interface CommentAnswerUseCaseResponse {
-	answerComment: AnswerComment;
-}
+type CommentAnswerUseCaseResponse = Either<
+	NotFoundError | UnauthorizedError,
+	{ answerComment: AnswerComment }
+>;
 
 interface DeleteCommentQuestionUseCaseRequest {
 	authorId: string;
@@ -36,18 +40,20 @@ interface ListCommentsAnswerUseCaseRequest {
 	answerId: string;
 }
 
-interface ListCommentsAnswerUseCaseResponse {
-	answerComments: AnswerComment[];
-}
+type ListCommentsAnswerUseCaseResponse = Either<
+	null,
+	{ answerComments: AnswerComment[] }
+>;
 
 interface ListCommentsQuestionUseCaseRequest {
 	page: number;
 	questionId: string;
 }
 
-interface ListCommentsQuestionUseCaseResponse {
-	questionComments: QuestionComment[];
-}
+type ListCommentsQuestionUseCaseResponse = Either<
+	null,
+	{ questionComments: QuestionComment[] }
+>;
 
 export type {
 	CommentAnswerUseCaseRequest,

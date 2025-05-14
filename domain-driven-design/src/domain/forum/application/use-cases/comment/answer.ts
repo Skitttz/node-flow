@@ -1,4 +1,6 @@
+import { left, right } from "@@src/core/either";
 import { UniqueID } from "@@src/core/entities/unique-id";
+import { NotFoundError } from "@@src/core/errors/not-found";
 import { AnswerComment } from "@@src/domain/forum/enterprise/entities/comment/answer";
 import type { AnswersRepository } from "../../repositories/answers-repository";
 import type { AnswerCommentRepository } from "../../repositories/comments-repository";
@@ -20,7 +22,7 @@ export class CommentAnswerUseCase {
 	}: CommentAnswerUseCaseRequest): Promise<CommentAnswerUseCaseResponse> {
 		const answer = await this.answersRepository.findById(answerId);
 		if (!answer) {
-			throw new Error("Answer not found");
+			return left(new NotFoundError());
 		}
 
 		const answerComment = AnswerComment.create({
@@ -31,8 +33,6 @@ export class CommentAnswerUseCase {
 
 		await this.answerCommentRepository.create(answerComment);
 
-		return {
-			answerComment,
-		};
+		return right({ answerComment });
 	}
 }

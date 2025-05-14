@@ -7,22 +7,25 @@ let inMemoryQuestionsRepository: InMemoryQuestionsRepository;
 let sut: GetQuestionBySlugUseCase;
 
 describe("Question by Slug flow", () => {
-  beforeEach(() => {
-    inMemoryQuestionsRepository = new InMemoryQuestionsRepository();
-    sut = new GetQuestionBySlugUseCase(inMemoryQuestionsRepository);
-  });
-  it("should be able to find question by slug", async () => {
-    const newQuestion = buildQuestion({
-      slug: Slug.create("example-question"),
-    });
+	beforeEach(() => {
+		inMemoryQuestionsRepository = new InMemoryQuestionsRepository();
+		sut = new GetQuestionBySlugUseCase(inMemoryQuestionsRepository);
+	});
+	it("should be able to find question by slug", async () => {
+		const newQuestion = buildQuestion({
+			slug: Slug.create("example-question"),
+		});
 
-    inMemoryQuestionsRepository.create(newQuestion);
+		inMemoryQuestionsRepository.create(newQuestion);
 
-    const { question } = await sut.execute({
-      slug: "example-question",
-    });
+		const result = await sut.execute({
+			slug: "example-question",
+		});
 
-    expect(question.id).toBeTruthy();
-    expect(question.title).toEqual(newQuestion.title);
-  });
+		expect(result.value).toMatchObject({
+			question: expect.objectContaining({
+				title: newQuestion.title,
+			}),
+		});
+	});
 });

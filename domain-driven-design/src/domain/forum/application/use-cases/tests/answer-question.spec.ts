@@ -10,13 +10,12 @@ describe("Create Answer Question Flow", () => {
 		sut = new AnswerQuestionUseCase(inMemoryAnswersRepository);
 	});
 	it("should be create answer question", async () => {
-		const { answer } = await sut.execute({
+		const { isRight, value } = await sut.execute({
 			instructorId: "1",
 			questionId: "2",
 			content: "content answer",
 		});
-
-		expect(answer.id).toBeTruthy();
-		expect(inMemoryAnswersRepository.items[0].id).toEqual(answer.id);
+		expect(isRight()).toBe(true);
+		expect(inMemoryAnswersRepository.items[0]).toEqual(value?.answer);
 	});
 });

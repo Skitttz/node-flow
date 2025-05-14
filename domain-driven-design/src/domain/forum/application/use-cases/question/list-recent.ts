@@ -1,19 +1,18 @@
+import { right } from "@@src/core/either";
 import type { QuestionsRepository } from "../../repositories/questions-repository";
 import type {
-  ListRecentQuestionsUseCaseRequest,
-  ListRecentQuestionsUseCaseResponse,
+	ListRecentQuestionsUseCaseRequest,
+	ListRecentQuestionsUseCaseResponse,
 } from "../../types/questions";
 
 export class ListRecentQuestionUseCase {
-  constructor(private questionsRepository: QuestionsRepository) {}
+	constructor(private questionsRepository: QuestionsRepository) {}
 
-  async execute({
-    page,
-  }: ListRecentQuestionsUseCaseRequest): Promise<ListRecentQuestionsUseCaseResponse> {
-    const questions = await this.questionsRepository.findManyRecent({page});
+	async execute({
+		page,
+	}: ListRecentQuestionsUseCaseRequest): Promise<ListRecentQuestionsUseCaseResponse> {
+		const questions = await this.questionsRepository.findManyRecent({ page });
 
-    return {
-      questions,
-    };
-  }
+		return right({ questions });
+	}
 }

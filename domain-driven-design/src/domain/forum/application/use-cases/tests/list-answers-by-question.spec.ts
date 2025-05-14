@@ -1,44 +1,41 @@
 import { buildManyItems } from "tests/factories/build-many";
-import { InMemoryQuestionsRepository } from "tests/repositories/in-memory-questions-repository";
-import { ListRecentQuestionUseCase } from "../question/list-recent";
+import { InMemoryAnswersRepository } from "tests/repositories/in-memory-answers-repository";
+import { ListAnswerUseCase } from "../answer/list";
 
-let inMemoryQuestionsRepository: InMemoryQuestionsRepository;
-let sut: ListRecentQuestionUseCase;
+let answerMemoryAnswersRepositorys: InMemoryAnswersRepository;
+let sut: ListAnswerUseCase;
 
-describe("List Recent Questions flow", () => {
+describe("List Answers by Question Flow", () => {
 	beforeEach(() => {
-		inMemoryQuestionsRepository = new InMemoryQuestionsRepository();
-		sut = new ListRecentQuestionUseCase(inMemoryQuestionsRepository);
+		answerMemoryAnswersRepositorys = new InMemoryAnswersRepository();
+		sut = new ListAnswerUseCase(answerMemoryAnswersRepositorys);
 	});
-	it("should be able to show list recent questions", async () => {
+	it("should be able to show list answers", async () => {
 		await buildManyItems({
-			repository: inMemoryQuestionsRepository,
-			numberofItems: 4,
-			options: { createdAtStart: new Date(2022, 0, 1) },
+			repository: answerMemoryAnswersRepositorys,
+			numberofItems: 8,
+			questionId: "example-question",
 		});
 
-		const { questions } = await sut.execute({
+		const result = await sut.execute({
 			page: 1,
+			questionId: "example-question",
 		});
 
-		expect(questions).toEqual([
-			expect.objectContaining({ createdAt: new Date(2022, 0, 4) }),
-			expect.objectContaining({ createdAt: new Date(2022, 0, 3) }),
-			expect.objectContaining({ createdAt: new Date(2022, 0, 2) }),
-			expect.objectContaining({ createdAt: new Date(2022, 0, 1) }),
-		]);
+		expect(result.value?.answers).toHaveLength(8);
 	});
-	it("should be able to show paginated recent questions", async () => {
+	it("should be able to show paginated answers", async () => {
 		await buildManyItems({
-			repository: inMemoryQuestionsRepository,
+			repository: answerMemoryAnswersRepositorys,
 			numberofItems: 24,
-			options: { createdAtStart: new Date(2022, 0, 1) },
+			questionId: "example-question",
 		});
 
-		const { questions } = await sut.execute({
+		const result = await sut.execute({
 			page: 2,
+			questionId: "example-question",
 		});
 
-		expect(questions).toHaveLength(4);
+		expect(result.value?.answers).toHaveLength(4);
 	});
 });

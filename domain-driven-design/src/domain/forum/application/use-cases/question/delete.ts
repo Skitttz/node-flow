@@ -1,23 +1,31 @@
+import { left, right } from "@@src/core/either";
+import { NotFoundError } from "@@src/core/errors/not-found";
+import { UnauthorizedError } from "@@src/core/errors/unauthorized";
 import type { QuestionsRepository } from "../../repositories/questions-repository";
-import type { DeleteQuestionUseCaseRequest } from "../../types/questions";
+import type {
+	DeleteQuestionUseCaseRequest,
+	DeleteQuestionUseCaseResponse,
+} from "../../types/questions";
 
 export class DeleteQuestionUseCase {
-  constructor(private questionsRepository: QuestionsRepository) {}
+	constructor(private questionsRepository: QuestionsRepository) {}
 
-  async execute({
-    questionId,
-    authorId,
-  }: DeleteQuestionUseCaseRequest): Promise<void> {
-    const question = await this.questionsRepository.findById(questionId);
+	async execute({
+		questionId,
+		authorId,
+	}: DeleteQuestionUseCaseRequest): Promise<DeleteQuestionUseCaseResponse> {
+		const question = await this.questionsRepository.findById(questionId);
 
-    if (!question) {
-      throw new Error("Question not found");
-    }
+		if (!question) {
+			return left(new NotFoundError());
+		}
 
-    if (authorId !== question.authorId.toString()) {
-      throw new Error("Unauthorized");
-    }
+		if (authorId !== question.authorId.toString()) {
+			return left(new UnauthorizedError());
+		}
 
-    await this.questionsRepository.delete(question);
-  }
+		await this.questionsRepository.delete(question);
+
+		return right({});
+	}
 }
