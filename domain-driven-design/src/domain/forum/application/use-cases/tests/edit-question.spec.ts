@@ -1,4 +1,5 @@
 import { UniqueID } from "@@src/core/entities/unique-id";
+import { NotFoundError } from "@@src/core/errors/not-found";
 import { UnauthorizedError } from "@@src/core/errors/unauthorized";
 import { buildAttachment } from "tests/factories/build-attachment";
 import { buildQuestion } from "tests/factories/build-question";
@@ -100,14 +101,14 @@ describe("Edit Question flow", () => {
 	});
 
 	it("should throw when trying to edit a non-existent question", async () => {
-		await expect(() =>
-			sut.execute({
-				questionId: "non-existent-question",
-				authorId: AUTHOR_ID,
-				title: "New Title",
-				content: "New Content",
-				attachmentsIds: [],
-			}),
-		).rejects.toBeInstanceOf(Error);
+		const result = await sut.execute({
+			questionId: "non-existent-question",
+			authorId: AUTHOR_ID,
+			title: "New Title",
+			content: "New Content",
+			attachmentsIds: [],
+		});
+		expect(result.isLeft()).toBe(true);
+		expect(result.value).toBeInstanceOf(NotFoundError);
 	});
 });

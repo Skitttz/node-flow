@@ -17,7 +17,7 @@ export class InMemoryQuestionsRepository implements QuestionsRepository {
 			(question) => question.slug.value === slug,
 		);
 
-		if (!question) throw new Error("Question not found");
+		if (!question) return null;
 
 		return question;
 	}
@@ -26,7 +26,7 @@ export class InMemoryQuestionsRepository implements QuestionsRepository {
 		const question = this.items.find(
 			(question) => question.id.toString() === id,
 		);
-		if (!question) throw new Error("Question not found");
+		if (!question) return null;
 		return question;
 	}
 
