@@ -1,11 +1,14 @@
 import { UniqueID } from "@@src/core/entities/unique-id";
 import { UnauthorizedError } from "@@src/core/errors/unauthorized";
+import { buildAttachment } from "tests/factories/build-attachment";
 import { buildQuestion } from "tests/factories/build-question";
+import { InMemoryQuestionAttachmentsRepository } from "tests/repositories/in-memory-attachments-repository";
 import { InMemoryQuestionsRepository } from "tests/repositories/in-memory-questions-repository";
 import { EditQuestionUseCase } from "../question/edit";
 
 describe("Edit Question flow", () => {
 	let questionsRepository: InMemoryQuestionsRepository;
+	let questionAttachments: InMemoryQuestionAttachmentsRepository;
 	let sut: EditQuestionUseCase;
 
 	const AUTHOR_ID = "example-author";
@@ -13,8 +16,9 @@ describe("Edit Question flow", () => {
 	const OTHER_AUTHOR_ID = "example-author-other";
 
 	beforeEach(() => {
-		questionsRepository = new InMemoryQuestionsRepository();
-		sut = new EditQuestionUseCase(questionsRepository);
+		questionAttachments = new InMemoryQuestionAttachmentsRepository();
+		questionsRepository = new InMemoryQuestionsRepository(questionAttachments);
+		sut = new EditQuestionUseCase(questionsRepository, questionAttachments);
 	});
 
 	it("should be able to edit a question when the author is the same", async () => {
@@ -29,9 +33,27 @@ describe("Edit Question flow", () => {
 			content: "Content example updated",
 		};
 
+		questionAttachments.items.push(
+			buildAttachment({
+				type: "Question",
+				overide: {
+					questionId: newQuestion.id,
+					attachmentId: new UniqueID("question-attachment-1"),
+				},
+			}),
+			buildAttachment({
+				type: "Question",
+				overide: {
+					questionId: newQuestion.id,
+					attachmentId: new UniqueID("question-attachment-2"),
+				},
+			}),
+		);
+
 		await sut.execute({
 			questionId: newQuestion.id.toValue(),
 			authorId: AUTHOR_ID,
+			attachmentsIds: ["question-attachment-1", "question-attachment-3"],
 			...editQuestionData,
 		});
 
@@ -39,6 +61,18 @@ describe("Edit Question flow", () => {
 			title: editQuestionData.title,
 			content: editQuestionData.content,
 		});
+
+		expect(questionsRepository.items[0].attachments.currentItems).toHaveLength(
+			2,
+		);
+		expect(questionsRepository.items[0].attachments.currentItems).toEqual([
+			expect.objectContaining({
+				attachmentId: new UniqueID("question-attachment-1"),
+			}),
+			expect.objectContaining({
+				attachmentId: new UniqueID("question-attachment-3"),
+			}),
+		]);
 	});
 
 	it("should not allow editing a question from another author", async () => {
@@ -57,6 +91,7 @@ describe("Edit Question flow", () => {
 		const result = await sut.execute({
 			questionId: newQuestion.id.toValue(),
 			authorId: OTHER_AUTHOR_ID,
+			attachmentsIds: [],
 			...editQuestionData,
 		});
 
@@ -71,6 +106,7 @@ describe("Edit Question flow", () => {
 				authorId: AUTHOR_ID,
 				title: "New Title",
 				content: "New Content",
+				attachmentsIds: [],
 			}),
 		).rejects.toBeInstanceOf(Error);
 	});

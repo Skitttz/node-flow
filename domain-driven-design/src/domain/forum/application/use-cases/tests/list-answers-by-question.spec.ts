@@ -1,13 +1,19 @@
 import { buildManyItems } from "tests/factories/build-many";
 import { InMemoryAnswersRepository } from "tests/repositories/in-memory-answers-repository";
+import { InMemoryAnswerAttachmentsRepository } from "tests/repositories/in-memory-attachments-repository";
 import { ListAnswerUseCase } from "../answer/list";
 
 let answerMemoryAnswersRepositorys: InMemoryAnswersRepository;
+let answerAttachmentsMemoryRepositorys: InMemoryAnswerAttachmentsRepository;
 let sut: ListAnswerUseCase;
 
 describe("List Answers by Question Flow", () => {
 	beforeEach(() => {
-		answerMemoryAnswersRepositorys = new InMemoryAnswersRepository();
+		answerAttachmentsMemoryRepositorys =
+			new InMemoryAnswerAttachmentsRepository();
+		answerMemoryAnswersRepositorys = new InMemoryAnswersRepository(
+			answerAttachmentsMemoryRepositorys,
+		);
 		sut = new ListAnswerUseCase(answerMemoryAnswersRepositorys);
 	});
 	it("should be able to show list answers", async () => {

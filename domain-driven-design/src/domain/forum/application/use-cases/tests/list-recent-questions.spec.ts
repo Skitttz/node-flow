@@ -1,13 +1,19 @@
 import { buildManyItems } from "tests/factories/build-many";
+import { InMemoryQuestionAttachmentsRepository } from "tests/repositories/in-memory-attachments-repository";
 import { InMemoryQuestionsRepository } from "tests/repositories/in-memory-questions-repository";
 import { ListRecentQuestionUseCase } from "../question/list-recent";
 
 let inMemoryQuestionsRepository: InMemoryQuestionsRepository;
+let inMemoryQuestionAttachmentsRepository: InMemoryQuestionAttachmentsRepository;
 let sut: ListRecentQuestionUseCase;
 
 describe("List Recent Questions flow", () => {
 	beforeEach(() => {
-		inMemoryQuestionsRepository = new InMemoryQuestionsRepository();
+		inMemoryQuestionAttachmentsRepository =
+			new InMemoryQuestionAttachmentsRepository();
+		inMemoryQuestionsRepository = new InMemoryQuestionsRepository(
+			inMemoryQuestionAttachmentsRepository,
+		);
 		sut = new ListRecentQuestionUseCase(inMemoryQuestionsRepository);
 	});
 	it("should be able to show list recent questions", async () => {

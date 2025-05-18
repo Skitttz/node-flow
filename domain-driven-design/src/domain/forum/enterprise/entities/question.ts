@@ -1,81 +1,92 @@
-import { Entity } from "@@core/entities/entity";
 import type { UniqueID } from "@@core/entities/unique-id";
 import type { Optional } from "@@core/types/optional";
+import { AggregateRoot } from "@@src/core/entities/aggregate-root";
 import dayjs from "dayjs";
+import { QuestionAttachmentList } from "./attachment/question-attachment-list";
 import type { QuestionProps } from "./types/question";
 import { Slug } from "./valueObject/Slug";
 
-export class Question extends Entity<QuestionProps> {
-  get authorId() {
-    return this.props.authorId;
-  }
+export class Question extends AggregateRoot<QuestionProps> {
+	get authorId() {
+		return this.props.authorId;
+	}
 
-  get bestAnswerId() {
-    return this.props.bestAnswerId;
-  }
+	get bestAnswerId() {
+		return this.props.bestAnswerId;
+	}
 
-  get title() {
-    return this.props.title;
-  }
+	get title() {
+		return this.props.title;
+	}
 
-  get content() {
-    return this.props.content;
-  }
+	get content() {
+		return this.props.content;
+	}
 
-  get slug() {
-    return this.props.slug;
-  }
+	get slug() {
+		return this.props.slug;
+	}
 
-  get createdAt() {
-    return this.props.createdAt;
-  }
+	get attachments() {
+		return this.props.attachments;
+	}
 
-  get updatedAt() {
-    return this.props.updatedAt;
-  }
+	get createdAt() {
+		return this.props.createdAt;
+	}
 
-  get isNew(): boolean {
-    return dayjs().diff(this.createdAt, "days") <= 3;
-  }
+	get updatedAt() {
+		return this.props.updatedAt;
+	}
 
-  get excerpt() {
-    return this.content.substring(0, 120).trimEnd().concat("...");
-  }
+	get isNew(): boolean {
+		return dayjs().diff(this.createdAt, "days") <= 3;
+	}
 
-  private touch() {
-    this.props.updatedAt = new Date();
-  }
+	get excerpt() {
+		return this.content.substring(0, 120).trimEnd().concat("...");
+	}
 
-  set title(title: string) {
-    this.props.title = title;
-    this.props.slug = Slug.createFromText(title);
+	private touch() {
+		this.props.updatedAt = new Date();
+	}
 
-    this.touch();
-  }
+	set title(title: string) {
+		this.props.title = title;
+		this.props.slug = Slug.createFromText(title);
 
-  set content(content: string) {
-    this.props.content = content;
-    this.touch();
-  }
+		this.touch();
+	}
 
-  set bestAnswerId(bestAnswerId: UniqueID | undefined) {
-    this.props.bestAnswerId = bestAnswerId;
-    this.touch();
-  }
+	set content(content: string) {
+		this.props.content = content;
+		this.touch();
+	}
 
-  static create(
-    props: Optional<QuestionProps, "createdAt" | "slug">,
-    id?: UniqueID,
-  ) {
-    const question = new Question(
-      {
-        ...props,
-        slug: props.slug ?? Slug.createFromText(props.title),
-        createdAt: props.createdAt ?? new Date(),
-      },
-      id,
-    );
+	set bestAnswerId(bestAnswerId: UniqueID | undefined) {
+		this.props.bestAnswerId = bestAnswerId;
+		this.touch();
+	}
 
-    return question;
-  }
+	set attachments(attachments: QuestionAttachmentList) {
+		this.props.attachments = attachments;
+		this.touch();
+	}
+
+	static create(
+		props: Optional<QuestionProps, "createdAt" | "slug" | "attachments">,
+		id?: UniqueID,
+	) {
+		const question = new Question(
+			{
+				...props,
+				slug: props.slug ?? Slug.createFromText(props.title),
+				createdAt: props.createdAt ?? new Date(),
+				attachments: props.attachments ?? new QuestionAttachmentList(),
+			},
+			id,
+		);
+
+		return question;
+	}
 }

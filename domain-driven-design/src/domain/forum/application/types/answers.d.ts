@@ -8,6 +8,7 @@ interface AnswerQuestionUseCaseRequest {
 	instructorId: string;
 	questionId: string;
 	content: string;
+	attachmentsIds: string[];
 }
 
 type AnswerQuestionUseCaseResponse = Either<null, { answer: Answer }>;
@@ -26,6 +27,7 @@ interface EditAnswerUseCaseRequest {
 	authorId: string;
 	answerId: string;
 	content: string;
+	attachemntsIds: string[];
 }
 
 type EditAnswerUseCaseResponse = Either<

@@ -3,17 +3,32 @@ import { UnauthorizedError } from "@@src/core/errors/unauthorized";
 import { buildAnswer } from "tests/factories/build-answer";
 import { buildQuestion } from "tests/factories/build-question";
 import { InMemoryAnswersRepository } from "tests/repositories/in-memory-answers-repository";
+import {
+	InMemoryAnswerAttachmentsRepository,
+	InMemoryQuestionAttachmentsRepository,
+} from "tests/repositories/in-memory-attachments-repository";
 import { InMemoryQuestionsRepository } from "tests/repositories/in-memory-questions-repository";
 import { ChooseBestAnswerUseCase } from "../answer/choose-best";
 
 let inMemoryQuestionsRepository: InMemoryQuestionsRepository;
 let inMemoryAnswersRepository: InMemoryAnswersRepository;
+let inMemoryAnswerAttachmentsRepository: InMemoryAnswerAttachmentsRepository;
+let inMemoryQuestionAttachmentsRepository: InMemoryQuestionAttachmentsRepository;
 let sut: ChooseBestAnswerUseCase;
 
 describe("Choose Question Best Answer flow", () => {
 	beforeEach(() => {
-		inMemoryQuestionsRepository = new InMemoryQuestionsRepository();
-		inMemoryAnswersRepository = new InMemoryAnswersRepository();
+		inMemoryQuestionAttachmentsRepository =
+			new InMemoryQuestionAttachmentsRepository();
+		inMemoryQuestionsRepository = new InMemoryQuestionsRepository(
+			inMemoryQuestionAttachmentsRepository,
+		);
+
+		inMemoryAnswerAttachmentsRepository =
+			new InMemoryAnswerAttachmentsRepository();
+		inMemoryAnswersRepository = new InMemoryAnswersRepository(
+			inMemoryAnswerAttachmentsRepository,
+		);
 		sut = new ChooseBestAnswerUseCase(
 			inMemoryAnswersRepository,
 			inMemoryQuestionsRepository,
