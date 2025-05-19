@@ -1,3 +1,4 @@
+import { DomainEvents } from "@@src/core/events/domain-events";
 import type { PaginationParams } from "@@src/core/repositories/pagination-params";
 import type { QuestionAttachmentRepository } from "@@src/domain/forum/application/repositories/attachments-repository";
 import type { Question } from "@@src/domain/forum/enterprise/entities/question";
@@ -10,6 +11,7 @@ export class InMemoryQuestionsRepository implements QuestionsRepository {
 	) {}
 	async create(question: Question) {
 		this.items.push(question);
+		DomainEvents.dispatchEventsForAggregate(question.id);
 	}
 
 	async findBySlug(slug: string): Promise<Question | null> {
@@ -44,6 +46,8 @@ export class InMemoryQuestionsRepository implements QuestionsRepository {
 	async edit(question: Question) {
 		const itemIndex = this.items.findIndex((item) => item.id === question.id);
 		this.items[itemIndex] = question;
+
+		DomainEvents.dispatchEventsForAggregate(question.id);
 	}
 
 	async findManyRecent({ page }: PaginationParams) {
